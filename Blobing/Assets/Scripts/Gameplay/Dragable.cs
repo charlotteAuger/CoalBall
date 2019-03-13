@@ -9,6 +9,7 @@ public class Dragable : MonoBehaviour {
     [SerializeField] private Rigidbody2D rB2d;
     [SerializeField] private Transform anchorPoint;
     [SerializeField] private SlingshotData data;
+    [SerializeField] private LineRenderer aimLine;
 
     private bool slinging;
     private Coroutine returnCoroutine;
@@ -50,6 +51,7 @@ public class Dragable : MonoBehaviour {
     {
         transform.parent = null;
         ResetDrag();
+        this.enabled = false;
     }
 
     private void BeginSlinging()
@@ -77,8 +79,6 @@ public class Dragable : MonoBehaviour {
 
             rB2d.AddForce(force, ForceMode2D.Impulse);
         }
-        
-        
 
     }
 
@@ -90,6 +90,9 @@ public class Dragable : MonoBehaviour {
 
     private IEnumerator Slinging()
     {
+        aimLine.enabled = true;
+        
+        gameObject.layer = 2;
         while (slinging)
         {
             
@@ -110,11 +113,24 @@ public class Dragable : MonoBehaviour {
 
             transform.localPosition = new Vector3(0, newOffset, 0);
 
+            float raycastDistance = m + m / data.maxDistance * data.aimMaxDistance;
 
-            //visualization
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, slingVector, raycastDistance, ~(1 << 2));
+            aimLine.SetPosition(0, transform.position);
+            if (hit)
+            {
+                aimLine.SetPosition(1, hit.point);
+            }
+            else
+            {
+                aimLine.SetPosition(1, transform.position + slingVector.normalized * raycastDistance);
+            }
 
             yield return new WaitForFixedUpdate();
         }
+
+        aimLine.enabled = false;
+        gameObject.layer = 0;
     }
 
     private IEnumerator ReturnToPoint()

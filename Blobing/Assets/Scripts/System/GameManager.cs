@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
 
     public LevelData currentLevel;
     [SerializeField] private LevelList levelList;
+    public int currentGold;
 
     public delegate void PowerUpEvent(float amount);
     public PowerUpEvent TrailUp;
@@ -23,6 +24,7 @@ public class GameManager : MonoBehaviour
         //saveScript.DeleteSave();
         int levelID = saveScript.GetSavedLevel();
         //currentLevel = levelList.levels[levelID-1];
+        currentGold = saveScript.GetSavedGold();
 
         Screen.orientation = ScreenOrientation.Portrait;
     }
@@ -48,7 +50,7 @@ public class GameManager : MonoBehaviour
     public void IncrementLevel()
     {
         int newLevelID = Mathf.Min(currentLevel.id + 1, levelList.levels.Length);
-        saveScript.SaveLevel(newLevelID);
+        saveScript.Save(newLevelID, currentGold);
         currentLevel = levelList.levels[newLevelID-1];
     }
 

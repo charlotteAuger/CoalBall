@@ -10,4 +10,5 @@ public class SlingshotData : ScriptableObject {
     public float maxDistance;
     public float pullingLerpCoeff;
     public float returnLerpCoeff;
+    public float aimMaxDistance;
 }

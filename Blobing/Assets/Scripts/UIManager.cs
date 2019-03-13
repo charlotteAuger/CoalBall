@@ -27,7 +27,7 @@ public class UIManager : MonoBehaviour
     [Header("Transition")]
     [SerializeField] private GameObject transitionScreenCanvas;
     [SerializeField] private TextMeshProUGUI victoryText;
-    [SerializeField] private TextMeshProUGUI wdText;
+    [SerializeField] private TextMeshProUGUI coinText;
 
     [Header("Turns")]
     [SerializeField] private TextMeshProUGUI turnText;
@@ -73,17 +73,17 @@ public class UIManager : MonoBehaviour
         mainMenuCanvas.SetActive(state);
     }
 
-    public void SetTransitionUI(bool victory)
+    public void SetTransitionUI(bool victory, int points)
     {
         if (victory)
         {
-            victoryText.text = "Tap to continue !";
-            wdText.gameObject.SetActive(true);
+            victoryText.text = "You won!";
+            coinText.text = "+" + points*2;
         }
         else
         {
-            victoryText.text = "Tap to retry !";
-            wdText.gameObject.SetActive(false);
+           victoryText.text = "You lost...";
+           coinText.text = "+" + points;
         }
 
         transitionScreenCanvas.SetActive(true);

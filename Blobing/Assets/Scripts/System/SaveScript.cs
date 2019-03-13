@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class SaveScript
 {
-    public void SaveLevel(int currentLevel)
+    public void Save(int currentLevel, int currentGold)
     {
         PlayerPrefs.SetInt("Level", currentLevel);
+        PlayerPrefs.SetInt("Gold", currentGold);
     }
 
     public int GetSavedLevel()
@@ -19,6 +20,18 @@ public class SaveScript
         }
 
         return level;
+    }
+
+    public int GetSavedGold()
+    {
+        int gold = 0;
+
+        if (PlayerPrefs.HasKey("Gold"))
+        {
+            gold = PlayerPrefs.GetInt("Gold");
+        }
+
+        return gold;
     }
 
     public void DeleteSave()

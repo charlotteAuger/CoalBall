@@ -6,7 +6,7 @@ using UnityEngine;
 public class BallStats : ScriptableObject {
 
     public float scale;
-    public float scoreValue;
+    public int scoreValue;
     public int growthID;
     public float mass;
 

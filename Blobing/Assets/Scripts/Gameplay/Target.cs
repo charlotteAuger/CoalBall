@@ -14,8 +14,8 @@ public class Target : MonoBehaviour {
     }
 
     private List<PointGiver> pointGivers = new List<PointGiver>();
-    private float playerScore = 0;
-    private float aiScore = 0;
+    private int playerScore = 0;
+    private int aiScore = 0;
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -38,8 +38,8 @@ public class Target : MonoBehaviour {
         List<PointGiver> aiPoints = pointGivers.FindAll(p => p.isOwnedByPlayer == false);
         List<PointGiver> playerPoints = pointGivers.FindAll(p => p.isOwnedByPlayer == true);
 
-        float pScore = 0;
-        float aScore = 0;
+        int pScore = 0;
+        int aScore = 0;
 
         foreach (PointGiver p in playerPoints)
         {
@@ -59,9 +59,13 @@ public class Target : MonoBehaviour {
     }
 
     public bool CheckIfPlayerWins()
-    {
-        
+    { 
         return playerScore > aiScore;
+    }
+
+    public int GetPlayerScore()
+    {
+        return playerScore;
     }
 
 }

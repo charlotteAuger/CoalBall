@@ -21,7 +21,7 @@ public class PointGiver : MonoBehaviour {
         rB2d.mass = stats.mass;
     }
 
-    public float GetPointValue()
+    public int GetPointValue()
     {
         return stats.scoreValue;
     }
