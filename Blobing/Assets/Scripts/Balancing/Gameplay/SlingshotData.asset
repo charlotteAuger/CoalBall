@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: SlingshotData
   m_EditorClassIdentifier: 
   maxForce: 10
-  ballLienarDrag: 3.2
+  ballLinearDrag: 3
   maxDistance: 0.75
   pullingLerpCoeff: 0.05
   returnLerpCoeff: 0.45

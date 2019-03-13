@@ -6,7 +6,7 @@ using UnityEngine;
 public class SlingshotData : ScriptableObject {
 
     public float maxForce;
-    public float ballLienarDrag;
+    public float ballLinearDrag;
     public float maxDistance;
     public float pullingLerpCoeff;
     public float returnLerpCoeff;

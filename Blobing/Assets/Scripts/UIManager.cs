@@ -19,8 +19,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject gameUICanvas;
     [SerializeField] private TextMeshProUGUI playerScoreText;
     [SerializeField] private TextMeshProUGUI aiScoreText;
-    [SerializeField] private SpriteRenderer[] playerBallsLeft;
-    [SerializeField] private SpriteRenderer[] aiBallsLeft;
+    [SerializeField] private Image[] playerBallsLeft;
+    [SerializeField] private Image[] aiBallsLeft;
 
     [Header("Main Menu")]
     [SerializeField] private GameObject mainMenuCanvas;
@@ -30,15 +30,18 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject transitionScreenCanvas;
     [SerializeField] private TextMeshProUGUI victoryText;
     [SerializeField] private TextMeshProUGUI coinText;
+    [SerializeField] private TextMeshProUGUI totalCoinText;
 
     [Header("Turns")]
+    [SerializeField] private GameObject turnCanvas;
     [SerializeField] private TextMeshProUGUI turnText;
     [SerializeField] private float timeOnScreen;
 
-    public void InitializeInGameUI(int _currentLevel)
+    public void InitializeInGameUI()
     {
         UpdateScore(0, 0);
         gameUICanvas.SetActive(true);
+        UpdateBallsLeft(3, 3);
     }
 
     public void HideGameUI()
@@ -63,12 +66,13 @@ public class UIManager : MonoBehaviour
 
     public IEnumerator TurnAnnounce(bool isPlayerTurn)
     {
-        turnText.gameObject.SetActive(true);
+        
         turnText.text = isPlayerTurn ? "Your turn!" : "Enemy's turn!";
+        turnCanvas.SetActive(true);
 
         yield return new WaitForSeconds(timeOnScreen);
 
-        turnText.gameObject.SetActive(false);
+        turnCanvas.SetActive(false);
         TurnManager.Instance.BeginTurn();
     }
 
@@ -89,6 +93,8 @@ public class UIManager : MonoBehaviour
            victoryText.text = "You lost...";
            coinText.text = "+" + points;
         }
+
+        totalCoinText.text = GameManager.Instance.currentGold.ToString();
 
         transitionScreenCanvas.SetActive(true);
     }

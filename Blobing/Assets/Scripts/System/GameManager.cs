@@ -21,9 +21,7 @@ public class GameManager : MonoBehaviour
         else if (Instance != this) { Destroy(gameObject); }
 
         saveScript = new SaveScript();
-        //saveScript.DeleteSave();
         int levelID = saveScript.GetSavedLevel();
-        //currentLevel = levelList.levels[levelID-1];
         currentGold = saveScript.GetSavedGold();
 
         Screen.orientation = ScreenOrientation.Portrait;
@@ -32,19 +30,30 @@ public class GameManager : MonoBehaviour
 
     public void StartGame()
     {
-     
-        StartCoroutine(LoadLevel());
+
+        //StartCoroutine(LoadLevel());
+        UIManager.Instance.SetMainMenuVisibility(false);
+        UIManager.Instance.InitializeInGameUI();
+        UIManager.Instance.HideTransitionUI();
+
+        TurnManager.Instance.InitTurnSystem();
+
+        PoolManager.instance.Clear();
+
     }
 
     public IEnumerator EndGame(bool playerWins)
     {
 
-        yield return null;
+        yield return new WaitForSeconds(0.5f);
 
-        if (playerWins)
-        {
-             IncrementLevel();
-        }
+        int score = Target.Instance.GetPlayerScore();
+
+        currentGold += playerWins ? score * 2 : score;
+
+        UIManager.Instance.SetTransitionUI(playerWins, score);
+
+        
     }
 
     public void IncrementLevel()

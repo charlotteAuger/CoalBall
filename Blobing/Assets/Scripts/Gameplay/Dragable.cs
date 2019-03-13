@@ -16,13 +16,9 @@ public class Dragable : MonoBehaviour {
 
     private bool dragged = false;
 
-    public TextMeshProUGUI debug;
-
     private void Start()
     {
-        InitDrag();
-        rB2d.drag = data.ballLienarDrag;
-        
+        rB2d.drag = data.ballLinearDrag;
     }
 
     public void InitDrag()
@@ -40,7 +36,7 @@ public class Dragable : MonoBehaviour {
         DragInput.Instance.QuitSling -= EndSlinging;
     }
 
-    public void Attach()
+    private void Attach()
     {
         anchorPoint.rotation = Quaternion.Euler(Vector3.zero);
         transform.parent = anchorPoint;
@@ -52,6 +48,7 @@ public class Dragable : MonoBehaviour {
         transform.parent = null;
         ResetDrag();
         this.enabled = false;
+        StartCoroutine(TurnManager.Instance.EndTurn());
     }
 
     private void BeginSlinging()
@@ -135,7 +132,6 @@ public class Dragable : MonoBehaviour {
 
     private IEnumerator ReturnToPoint()
     {
-        //Vector3 basePosition = transform.localPosition;
 
         while (transform.localPosition.magnitude > Mathf.Epsilon)
         {
