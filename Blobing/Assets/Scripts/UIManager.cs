@@ -17,12 +17,12 @@ public class UIManager : MonoBehaviour
 
     [Header("Score and Level")]
     [SerializeField] private GameObject gameUICanvas;
-    [SerializeField] private TextMeshProUGUI currentLevel;
     [SerializeField] private TextMeshProUGUI playerScoreText;
     [SerializeField] private TextMeshProUGUI aiScoreText;
 
     [Header("Main Menu")]
     [SerializeField] private GameObject mainMenuCanvas;
+    [SerializeField] private TextMeshProUGUI currentGold;
 
     [Header("Transition")]
     [SerializeField] private GameObject transitionScreenCanvas;
@@ -35,7 +35,6 @@ public class UIManager : MonoBehaviour
 
     public void InitializeInGameUI(int _currentLevel)
     {
-        currentLevel.text = _currentLevel.ToString();
         UpdateScore(0, 0);
         gameUICanvas.SetActive(true);
     }
