@@ -9,6 +9,8 @@ public class TurnManager : MonoBehaviour {
     private bool isPlayerTurn;
     [SerializeField] private int nbrOfTurnPerPlayer;
     [SerializeField] private int nbrOfTurnFinished;
+    [SerializeField] private AIController ai;
+    [SerializeField] private SlingshotData data;
 
 
     private void Awake()
@@ -47,6 +49,12 @@ public class TurnManager : MonoBehaviour {
             return;
         }
 
+        StartCoroutine(UIManager.Instance.TurnAnnounce(isPlayerTurn));
+
+    }
+
+    public void BeginTurn()
+    {
         if (isPlayerTurn)
         {
             StartCoroutine(PlayerTurn());
@@ -55,9 +63,6 @@ public class TurnManager : MonoBehaviour {
         {
             StartCoroutine(AITurn());
         }
-
-        
-
     }
 
 }

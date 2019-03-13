@@ -14,6 +14,8 @@ public class Target : MonoBehaviour {
     }
 
     private List<PointGiver> pointGivers = new List<PointGiver>();
+    private List<PointGiver> playerPoints = new List<PointGiver>();
+    private List<PointGiver> aiPoints = new List<PointGiver>();
     private int playerScore = 0;
     private int aiScore = 0;
 
@@ -21,7 +23,16 @@ public class Target : MonoBehaviour {
     {
         if (other.gameObject.tag == "Ball")
         {
-            pointGivers.Add(other.gameObject.GetComponent<PointGiver>());
+            PointGiver pG = other.gameObject.GetComponent<PointGiver>();
+
+            if (pG.isOwnedByPlayer)
+            {
+                playerPoints.Add(pG);
+            }
+            else
+            {
+                aiPoints.Add(pG);
+            }
         }
     }
 
@@ -29,15 +40,21 @@ public class Target : MonoBehaviour {
     {
         if (other.gameObject.tag == "Ball")
         {
-            pointGivers.Remove(other.gameObject.GetComponent<PointGiver>());
+            PointGiver pG = other.gameObject.GetComponent<PointGiver>();
+
+            if (pG.isOwnedByPlayer)
+            {
+                playerPoints.Remove(pG);
+            }
+            else
+            {
+                aiPoints.Remove(pG);
+            }
         }
     }
 
     public void UpdateScore()
     {
-        List<PointGiver> aiPoints = pointGivers.FindAll(p => p.isOwnedByPlayer == false);
-        List<PointGiver> playerPoints = pointGivers.FindAll(p => p.isOwnedByPlayer == true);
-
         int pScore = 0;
         int aScore = 0;
 
@@ -56,6 +73,40 @@ public class Target : MonoBehaviour {
 
         UIManager.Instance.UpdateScore(playerScore, aiScore);
 
+    }
+
+    public bool PlayerHasMoreBalls()
+    {
+        return playerPoints.Count > aiPoints.Count;
+    }
+
+    public int DifferenceBetweenBiggestBalls()
+    {
+        int diff = 0;
+
+        int biggestPlayerBall = 1;
+        foreach (PointGiver pG in playerPoints)
+        {
+            int a = pG.stats.growthID;
+            if (pG.stats.growthID > biggestPlayerBall)
+            {
+                biggestPlayerBall = a;
+            }
+        }
+
+        int biggestAIBall = 1;
+        foreach (PointGiver pG in aiPoints)
+        {
+            int a = pG.stats.growthID;
+            if (pG.stats.growthID > biggestAIBall)
+            {
+                biggestAIBall = a;
+            }
+        }
+
+        diff = biggestAIBall - biggestPlayerBall;
+
+        return diff;
     }
 
     public bool CheckIfPlayerWins()

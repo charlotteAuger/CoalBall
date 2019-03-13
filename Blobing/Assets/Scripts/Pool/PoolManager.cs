@@ -6,7 +6,8 @@ public class PoolManager : MonoBehaviour
 {
     public static PoolManager instance;
 
-    public Poolable[] pool;
+    public BallPool[] pool;
+    public BallList list;
 
     private void Awake()
     {
@@ -15,10 +16,10 @@ public class PoolManager : MonoBehaviour
         else Destroy(this);
     }
 
-    public Poolable CreateBall(Vector3 position, bool ownedByPlayer, int typeId)
+    public BallPool CreateBall(Vector3 position, bool ownedByPlayer, int typeId)
     {
         //Check pool for available bullet
-        Poolable result = null;
+        BallPool result = null;
 
         
 
@@ -31,8 +32,11 @@ public class PoolManager : MonoBehaviour
             }
         }
 
-        result.Spawn();
+        
         result.transform.position = position;
+        result.Spawn();
+        result.SetUp(list.balls[typeId], ownedByPlayer);
+        
 
         return result;
     }

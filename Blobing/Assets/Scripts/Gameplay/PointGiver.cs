@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PointGiver : MonoBehaviour {
 
-    private BallStats stats;
+    public BallStats stats;
     public bool isOwnedByPlayer;
     [SerializeField] private Poolable pool;
     [SerializeField] private GameObject sprite;

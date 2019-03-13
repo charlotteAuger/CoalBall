@@ -19,6 +19,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject gameUICanvas;
     [SerializeField] private TextMeshProUGUI playerScoreText;
     [SerializeField] private TextMeshProUGUI aiScoreText;
+    [SerializeField] private SpriteRenderer[] playerBallsLeft;
+    [SerializeField] private SpriteRenderer[] aiBallsLeft;
 
     [Header("Main Menu")]
     [SerializeField] private GameObject mainMenuCanvas;
@@ -50,21 +52,24 @@ public class UIManager : MonoBehaviour
         aiScoreText.text = aScore.ToString();
     }
 
+    public void UpdateBallsLeft(int pbLeft, int abLeft)
+    {
+        for (int i = 0; i < playerBallsLeft.Length; i++)
+        {
+            playerBallsLeft[i].enabled = i < pbLeft;
+            aiBallsLeft[i].enabled = i < abLeft;
+        }
+    }
+
     public IEnumerator TurnAnnounce(bool isPlayerTurn)
     {
         turnText.gameObject.SetActive(true);
-        if (isPlayerTurn)
-        {
-            turnText.text = "Your turn!";
-        }
-        else
-        {
-            turnText.text = "Enemy's turn!";
-        }
+        turnText.text = isPlayerTurn ? "Your turn!" : "Enemy's turn!";
 
         yield return new WaitForSeconds(timeOnScreen);
 
         turnText.gameObject.SetActive(false);
+        TurnManager.Instance.BeginTurn();
     }
 
     public void SetMainMenuVisibility(bool state)

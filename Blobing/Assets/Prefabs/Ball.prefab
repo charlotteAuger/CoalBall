@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 114517612583006192}
   - component: {fileID: 114615616979047980}
   - component: {fileID: 114285226634384334}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Ball
   m_TagString: Ball
   m_Icon: {fileID: 0}
@@ -108,6 +108,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c68108c526c4ba44b38cc111cf572ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stats: {fileID: 0}
   isOwnedByPlayer: 0
   pool: {fileID: 114615616979047980}
   sprite: {fileID: 1590213656862178}
@@ -128,6 +129,9 @@ MonoBehaviour:
   isAvailable: 1
   collider: {fileID: 58723769550619666}
   pGiver: {fileID: 114517612583006192}
+  sRend: {fileID: 212350387981481266}
+  playerBallSprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  aiBallSprite: {fileID: 10911, guid: 0000000000000000f000000000000000, type: 0}
 --- !u!114 &114285226634384334
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -135,7 +139,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1455446525726900}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d1bf44d6c5e8e1c46bcc461782f7d5ef, type: 3}
   m_Name: 
@@ -143,6 +147,7 @@ MonoBehaviour:
   rB2d: {fileID: 50581196317404758}
   anchorPoint: {fileID: 0}
   data: {fileID: 11400000, guid: e89c041adf6796b438c6f6c52365047c, type: 2}
+  aimLine: {fileID: 0}
   debug: {fileID: 0}
 --- !u!1 &1590213656862178
 GameObject:
@@ -154,7 +159,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4666853246797794}
   - component: {fileID: 212350387981481266}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
