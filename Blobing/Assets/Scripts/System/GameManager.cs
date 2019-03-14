@@ -31,7 +31,6 @@ public class GameManager : MonoBehaviour
     public void StartGame()
     {
 
-        //StartCoroutine(LoadLevel());
         UIManager.Instance.SetMainMenuVisibility(false);
         UIManager.Instance.InitializeInGameUI();
         UIManager.Instance.HideTransitionUI();
@@ -53,21 +52,14 @@ public class GameManager : MonoBehaviour
 
         UIManager.Instance.SetTransitionUI(playerWins, score);
 
-        
+        saveScript.Save(currentGold);
     }
 
-    public void IncrementLevel()
-    {
-        int newLevelID = Mathf.Min(currentLevel.id + 1, levelList.levels.Length);
-        saveScript.Save(newLevelID, currentGold);
-        currentLevel = levelList.levels[newLevelID-1];
-    }
+  
 
-    IEnumerator LoadLevel()
+    private void LoadLevel()
     {
-        LevelGenerator.instance.ClearLevel();
-        yield return null;
-        LevelGenerator.instance.GenerateLevel(currentLevel);
+       LevelGenerator.instance.GenerateLevel(currentLevel);
     }
 
 }

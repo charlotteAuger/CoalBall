@@ -28,4 +28,12 @@ public class BallPool : Poolable {
         pGiver.SetStats(_stats, _isOwnbedByPlayer);
         sRend.sprite = _isOwnbedByPlayer ? playerBallSprite : aiBallSprite;
     }
+
+    private void Update()
+    {
+        if (!isAvailable && Input.GetKeyDown(KeyCode.Space))
+        {
+            Disable();
+        }
+    }
 }

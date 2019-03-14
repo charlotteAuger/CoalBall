@@ -10,6 +10,7 @@ public class Dragable : MonoBehaviour {
     [SerializeField] private Transform anchorPoint;
     [SerializeField] private SlingshotData data;
     [SerializeField] private LineRenderer aimLine;
+    [SerializeField] private Mergeable merge;
 
     private bool slinging;
     private Coroutine returnCoroutine;
@@ -41,6 +42,7 @@ public class Dragable : MonoBehaviour {
         anchorPoint.rotation = Quaternion.Euler(Vector3.zero);
         transform.parent = anchorPoint;
         transform.localPosition = Vector3.zero;
+        merge.enabled = false;
     }
 
     public void Detach()
@@ -48,7 +50,9 @@ public class Dragable : MonoBehaviour {
         transform.parent = null;
         ResetDrag();
         this.enabled = false;
-        StartCoroutine(TurnManager.Instance.EndTurn());
+        merge.enabled = true;
+        TurnManager.Instance.StartEndTurnCoroutine();
+
     }
 
     private void BeginSlinging()

@@ -4,9 +4,8 @@ using UnityEngine;
 
 public class SaveScript
 {
-    public void Save(int currentLevel, int currentGold)
+    public void Save(int currentGold)
     {
-        PlayerPrefs.SetInt("Level", currentLevel);
         PlayerPrefs.SetInt("Gold", currentGold);
     }
 

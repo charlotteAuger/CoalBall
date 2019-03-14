@@ -56,9 +56,14 @@ public class TurnManager : MonoBehaviour {
         ai.Play();
     }
 
+    public void StartEndTurnCoroutine()
+    {
+        StartCoroutine(EndTurn());
+    }
+
     public IEnumerator EndTurn()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(1.5f);
 
         nbrOfTurnFinished++;
 

@@ -14,8 +14,8 @@ public class Target : MonoBehaviour {
     }
 
     private List<PointGiver> pointGivers = new List<PointGiver>();
-    private List<PointGiver> playerPoints = new List<PointGiver>();
-    private List<PointGiver> aiPoints = new List<PointGiver>();
+    public List<PointGiver> playerPoints = new List<PointGiver>();
+    public List<PointGiver> aiPoints = new List<PointGiver>();
     private int playerScore = 0;
     private int aiScore = 0;
 
@@ -25,13 +25,15 @@ public class Target : MonoBehaviour {
         {
             PointGiver pG = other.gameObject.GetComponent<PointGiver>();
 
-            if (pG.isOwnedByPlayer)
+            if (pG.isOwnedByPlayer && !playerPoints.Contains(pG))
             {
                 playerPoints.Add(pG);
+                print("IN player");
             }
-            else
+            else if (!pG.isOwnedByPlayer && !aiPoints.Contains(pG))
             {
                 aiPoints.Add(pG);
+                print("IN AI");
             }
         }
     }
@@ -50,6 +52,18 @@ public class Target : MonoBehaviour {
             {
                 aiPoints.Remove(pG);
             }
+        }
+    }
+
+    public void Remove(PointGiver pG)
+    {
+        if (pG.isOwnedByPlayer && playerPoints.Contains(pG))
+        {
+            playerPoints.Remove(pG);
+        }
+        else if (!pG.isOwnedByPlayer && aiPoints.Contains(pG))
+        {
+            aiPoints.Remove(pG);
         }
     }
 

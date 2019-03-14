@@ -9,6 +9,7 @@ public class AIController : MonoBehaviour
     private Transform currentBall;
     private PlayType currentStrategy;
     private Rigidbody2D rB2d;
+    private Mergeable merge;
     [SerializeField] private Transform anchorPoint;
     [SerializeField] private SlingshotData data;
 
@@ -22,7 +23,10 @@ public class AIController : MonoBehaviour
     public void InitAITurn()
     {
         currentBall = PoolManager.instance.CreateBall(anchorPoint.position, false, 0).transform;
-        rB2d = currentBall.GetComponent<Rigidbody2D>();  
+        rB2d = currentBall.GetComponent<Rigidbody2D>();
+        merge = currentBall.GetComponent<Mergeable>();
+        merge.enabled = false;
+
     }
 
     public void Play()
@@ -90,5 +94,7 @@ public class AIController : MonoBehaviour
 
         rB2d.drag = data.ballLinearDrag;
         rB2d.AddForce(impulse, ForceMode2D.Impulse);
+
+        merge.enabled = true;
     }
 }

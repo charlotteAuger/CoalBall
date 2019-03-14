@@ -97,6 +97,9 @@ MonoBehaviour:
   animationTime: 0.5
   sprite: {fileID: 1590213656862178}
   rB2d: {fileID: 50581196317404758}
+  pG: {fileID: 114517612583006192}
+  pool: {fileID: 114615616979047980}
+  list: {fileID: 11400000, guid: 62dadf63f66968c41a2957991d3e5a49, type: 2}
 --- !u!114 &114517612583006192
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -149,7 +152,7 @@ MonoBehaviour:
   anchorPoint: {fileID: 0}
   data: {fileID: 11400000, guid: e89c041adf6796b438c6f6c52365047c, type: 2}
   aimLine: {fileID: 8868959}
-  debug: {fileID: 0}
+  merge: {fileID: 114821109727049894}
 --- !u!120 &8868959
 LineRenderer:
   m_ObjectHideFlags: 0
