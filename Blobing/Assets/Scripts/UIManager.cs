@@ -67,7 +67,7 @@ public class UIManager : MonoBehaviour
     public IEnumerator TurnAnnounce(bool isPlayerTurn)
     {
         
-        turnText.text = isPlayerTurn ? "Your turn!" : "Enemy's turn!";
+        turnText.text = isPlayerTurn ? "your turn!" : "enemy's turn!";
         turnCanvas.SetActive(true);
 
         yield return new WaitForSeconds(timeOnScreen);
@@ -85,12 +85,12 @@ public class UIManager : MonoBehaviour
     {
         if (victory)
         {
-            victoryText.text = "You won!";
+            victoryText.text = "you won!";
             coinText.text = "+" + points*2;
         }
         else
         {
-           victoryText.text = "You lost...";
+           victoryText.text = "you lost...";
            coinText.text = "+" + points;
         }
 

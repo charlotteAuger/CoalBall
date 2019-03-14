@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 77d813157d6e544429ab35c171bc25c6, type: 3}
-  m_Name: Ball 2
+  m_Name: Ball 6
   m_EditorClassIdentifier: 
-  scale: 1.2
-  scoreValue: 4
-  growthID: 2
-  mass: 2
+  scale: 2.4
+  scoreValue: 12
+  growthID: 6
+  mass: 6

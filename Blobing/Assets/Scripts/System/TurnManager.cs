@@ -35,7 +35,6 @@ public class TurnManager : MonoBehaviour {
     public void ChooseFirstPlayer()
     {
         isPlayerTurn = Random.Range(0, 3) < 2;
-        isPlayerTurn = true;
     }
 
     public IEnumerator PlayerTurn()
@@ -56,9 +55,14 @@ public class TurnManager : MonoBehaviour {
         ai.Play();
     }
 
+    public void StartEndTurnCoroutine()
+    {
+        StartCoroutine(EndTurn());
+    }
+
     public IEnumerator EndTurn()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(1.5f);
 
         nbrOfTurnFinished++;
 

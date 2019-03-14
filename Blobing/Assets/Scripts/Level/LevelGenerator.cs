@@ -6,12 +6,9 @@ using System.Linq;
 public class LevelGenerator : MonoBehaviour
 {
     public static LevelGenerator instance = null;
-    [SerializeField] private Transform[] spawnPoints;
-    [SerializeField] private Transform[] closestSpawnPoints;
-    private GameObject[] circles;
-    public float checkTiming;
-    public bool on;
-    public GameObject circlePrefab;
+    [SerializeField] private Transform[] playerSpawnPoints;
+    [SerializeField] private Transform[] aiSpawnPoints;
+    [SerializeField] private int ballsToSpawn;
 
     void Awake()
     {
@@ -21,34 +18,22 @@ public class LevelGenerator : MonoBehaviour
             Destroy(this.gameObject);
     }
 
-    public void GenerateLevel(LevelData data)
+    public void GenerateLevel()
     {
+        List<Transform> tempPlayerSpawnPoints = playerSpawnPoints.ToList<Transform>();
+        List<Transform> tempAISpawnPoints = aiSpawnPoints.ToList<Transform>();
+
+        for (int i = 0; i < ballsToSpawn; i++)
+        {
+            int r = Random.Range(0, tempPlayerSpawnPoints.Count);
+
+            PoolManager.instance.CreateBall(tempPlayerSpawnPoints[r].position, true, 0);
+            PoolManager.instance.CreateBall(tempAISpawnPoints[r].position, false, 0);
+
+            tempPlayerSpawnPoints.RemoveAt(r);
+            tempAISpawnPoints.RemoveAt(r);
+        }
         
-        
-    }
-
-    private Vector3 GetRandomPositionFromSpawnpoint(Transform spawnPoint)
-    {
-        Vector2 randomInRange = Random.insideUnitCircle;
-        Vector3 spawnPosition = spawnPoint.position + new Vector3(randomInRange.x, 0, randomInRange.y) * 5f;
-        return spawnPosition;
-    }
-
-    private void CheckList(ref List<Transform> list)
-    {
-        if (list.Count > 0) return;
-
-        else list = spawnPoints.ToList<Transform>();
-    }
-
-    public void AddElement(Poolable element)
-    {
-       
-    }
-
-    public void RemoveElement(Poolable element)
-    {
-       
     }
 
     public void ClearLevel()
