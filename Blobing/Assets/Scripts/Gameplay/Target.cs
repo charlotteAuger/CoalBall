@@ -28,12 +28,11 @@ public class Target : MonoBehaviour {
             if (pG.isOwnedByPlayer && !playerPoints.Contains(pG))
             {
                 playerPoints.Add(pG);
-                print("IN player");
             }
             else if (!pG.isOwnedByPlayer && !aiPoints.Contains(pG))
             {
                 aiPoints.Add(pG);
-                print("IN AI");
+
             }
         }
     }

@@ -35,7 +35,6 @@ public class TurnManager : MonoBehaviour {
     public void ChooseFirstPlayer()
     {
         isPlayerTurn = Random.Range(0, 3) < 2;
-        isPlayerTurn = true;
     }
 
     public IEnumerator PlayerTurn()

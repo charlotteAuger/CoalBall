@@ -39,6 +39,8 @@ public class GameManager : MonoBehaviour
 
         PoolManager.instance.Clear();
 
+        LevelGenerator.instance.GenerateLevel();
+
     }
 
     public IEnumerator EndGame(bool playerWins)
@@ -53,13 +55,6 @@ public class GameManager : MonoBehaviour
         UIManager.Instance.SetTransitionUI(playerWins, score);
 
         saveScript.Save(currentGold);
-    }
-
-  
-
-    private void LoadLevel()
-    {
-       LevelGenerator.instance.GenerateLevel(currentLevel);
     }
 
 }
