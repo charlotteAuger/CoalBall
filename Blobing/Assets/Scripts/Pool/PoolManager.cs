@@ -6,7 +6,7 @@ public class PoolManager : MonoBehaviour
 {
     public static PoolManager instance;
 
-    public BallPool[] pool;
+    public List<BallPool> pool = new List<BallPool>();
     public BallList list;
 
     private void Awake()
@@ -23,7 +23,7 @@ public class PoolManager : MonoBehaviour
 
         
 
-        for (int i = 0; i < pool.Length; i++)
+        for (int i = 0; i < pool.Count; i++)
         {
             if (pool[i].isAvailable)
             {
@@ -44,5 +44,14 @@ public class PoolManager : MonoBehaviour
     public void DestroyObject(Poolable pToDestroy)
     {
         pToDestroy.Disable(); 
+    }
+
+    public void Clear()
+    {
+        List<BallPool> spawnedBalls = pool.FindAll(p => p.isAvailable == false);
+        foreach (BallPool p in spawnedBalls)
+        {
+            p.Disable();
+        }
     }
 }

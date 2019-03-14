@@ -14,28 +14,21 @@ public class AIController : MonoBehaviour
 
     public Transform debugTarget;
 
-    public void InitAITurn()
+    public void InitAIGame()
     {
-        currentBall = PoolManager.instance.CreateBall(anchorPoint.position, false, 0).transform;
-        rB2d = currentBall.GetComponent<Rigidbody2D>();
         currentStrategy = (PlayType)Random.Range(0, 3);
     }
 
-    private void Update()
+    public void InitAITurn()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            Play();
-        }
+        currentBall = PoolManager.instance.CreateBall(anchorPoint.position, false, 0).transform;
+        rB2d = currentBall.GetComponent<Rigidbody2D>();  
     }
 
     public void Play()
     {
-        InitAITurn();
         Vector3 t = ChooseTarget();
-        print("target : " + t);
         Vector2 i = GetImpulseFromAim(t);
-        print("impulse : " + i);
         StartCoroutine(SlingshotAnimation(i));
     }
 
@@ -68,10 +61,8 @@ public class AIController : MonoBehaviour
     {
         Vector2 impulse = Vector2.zero;
         Vector2 direction = target - anchorPoint.position;
-        print("distance : " + direction.magnitude);
 
         float factor = Mathf.Min(1,direction.magnitude / data.aimMaxDistance);
-        print("factor : " + factor);
 
         impulse = direction.normalized * factor;
 
@@ -80,25 +71,24 @@ public class AIController : MonoBehaviour
 
     private IEnumerator SlingshotAnimation(Vector2 impulse)
     {
-        Vector2 pullVector = - impulse * data.maxDistance; print("pullVector : " + pullVector);
-        Vector3 targetPosition = anchorPoint.position + new Vector3(pullVector.x, pullVector.y, 0); print("targetPullPosition : " + targetPosition);
+        Vector2 pullVector = - impulse * data.maxDistance;
+        Vector3 targetPosition = anchorPoint.position + new Vector3(pullVector.x, pullVector.y, 0);
         while (Vector3.Distance(targetPosition, currentBall.position) > 0.01f)
         {
             currentBall.position = Vector3.Lerp(currentBall.position, targetPosition, 0.2f);
-            print(Vector3.Distance(targetPosition, currentBall.position));
             yield return new WaitForFixedUpdate();
         }
 
-        print("endLoop");
         currentBall.position = targetPosition;
         LaunchBall(impulse);
+        StartCoroutine(TurnManager.Instance.EndTurn());
     }
 
     private void LaunchBall(Vector2 _impulse)
     {
         Vector2 impulse = _impulse * data.maxForce;
-        print("final impulse : " + impulse);
-        rB2d.drag = data.ballLienarDrag;
+
+        rB2d.drag = data.ballLinearDrag;
         rB2d.AddForce(impulse, ForceMode2D.Impulse);
     }
 }
